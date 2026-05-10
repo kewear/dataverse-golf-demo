@@ -1,0 +1,10 @@
+<botcomponent schemaname="cra93_ZavaGolfBookingAgent.gpt.default">
+  <componenttype>15</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Zava Golf Booking Agent</name>
+  <parentbotid>
+    <schemaname>cra93_ZavaGolfBookingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

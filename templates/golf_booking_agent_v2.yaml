@@ -1,0 +1,163 @@
+kind: BotDefinition
+entity:
+  accessControlPolicy: Any
+  authenticationMode: Unspecified
+  authenticationTrigger: AsNeeded
+  configuration:
+    settings:
+      GenerativeActionsEnabled: true
+
+  template: GolfBookingAgentTemplate-1.0.0
+
+components:
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversation Start
+    description: Welcomes the golfer when the conversation begins.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: zava
+    schemaName: template-content.topic.ConversationStart
+    dialog:
+      beginDialog:
+        kind: OnConversationStart
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_welcome
+            activity:
+              text:
+                - "Welcome to Zava Golf Course! ⛳ I'm your booking assistant. I can help you book tee times, check availability, look up membership status, or answer questions about rates. How can I help?"
+              speak:
+                - "Welcome to Zava Golf Course! I'm your booking assistant. How can I help you today?"
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Escalate
+    description: Triggered when the user wants to speak to a human.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: zava
+    schemaName: template-content.topic.Escalate
+    dialog:
+      startBehavior: CancelOtherTopics
+      beginDialog:
+        kind: OnEscalate
+        id: main
+        intent:
+          displayName: Escalate
+          includeInOnSelectIntent: false
+          triggerQueries:
+            - Talk to agent
+            - Talk to a person
+            - Talk to someone
+            - Connect me to a live agent
+            - Customer service
+            - I want to speak to someone
+            - Can I talk to a human
+
+        actions:
+          - kind: SendActivity
+            id: sendMessage_escalate
+            conversationOutcome: Escalated
+            activity: |-
+              I'd be happy to connect you with our pro shop staff:
+
+              📞 Phone: (555) GOLF-123
+              📧 Email: proshop@zavagolf.com
+              🕐 Hours: 6:30 AM - 7:00 PM daily
+
+              Is there anything else I can help with in the meantime?
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: On Error
+    description: Triggered when the agent encounters an error.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: zava
+    schemaName: template-content.topic.OnError
+    dialog:
+      startBehavior: UseLatestPublishedContentAndCancelOtherTopics
+      beginDialog:
+        kind: OnError
+        id: main
+        actions:
+          - kind: SendActivity
+            id: sendMessage_error
+            activity: "I'm sorry, something went wrong. Please try again or call our pro shop at (555) GOLF-123."
+
+          - kind: CancelAllDialogs
+            id: cancelAll_error
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Fallback
+    description: Triggered when no topic matches — hands off to generative orchestration.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: zava
+    schemaName: template-content.topic.Fallback
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        actions:
+          - kind: ConditionGroup
+            id: conditionGroup_fallback
+            conditions:
+              - id: conditionItem_retry
+                condition: =System.FallbackCount < 3
+                actions:
+                  - kind: SendActivity
+                    id: sendMessage_retry
+                    activity: "I'm not sure I understood that. I can help with booking tee times, checking availability, membership status, or rates. Could you rephrase?"
+
+            elseActions:
+              - kind: BeginDialog
+                id: fallback_escalate
+                dialog: template-content.topic.Escalate
+
+  - kind: DialogComponent
+    managedProperties:
+      isCustomizable: false
+
+    displayName: Conversational boosting
+    description: Generative orchestration — the model uses available tools and instructions to handle requests autonomously.
+    shareContext: {}
+    state: Active
+    status: Active
+    publisherUniqueName: zava
+    schemaName: template-content.topic.Conversationalboosting
+    dialog:
+      beginDialog:
+        kind: OnUnknownIntent
+        id: main
+        priority: -1
+        actions:
+          - kind: SearchAndSummarizeContent
+            id: search-content
+            variable: Topic.Answer
+            userInput: =System.Activity.Text
+
+          - kind: ConditionGroup
+            id: has-answer-conditions
+            conditions:
+              - id: has-answer
+                condition: =!IsBlank(Topic.Answer)
+                actions:
+                  - kind: EndDialog
+                    id: end-topic
+                    clearTopicQueue: true

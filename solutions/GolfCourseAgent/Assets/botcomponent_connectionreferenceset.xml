@@ -1,0 +1,5 @@
+<botcomponent_connectionreferenceset>
+  <botcomponent_connectionreference botcomponentid.schemaname="cra93_ZavaGolfBookingAgent.action.MicrosoftDataverse-MicrosoftDataverseMCPServer" connectionreferenceid.connectionreferencelogicalname="cra93_ZavaGolfBookingAgent.shared_commondataserviceforapps.7cb8a7809c104a93955a467a61e8c796">
+    <iscustomizable>1</iscustomizable>
+  </botcomponent_connectionreference>
+</botcomponent_connectionreferenceset>

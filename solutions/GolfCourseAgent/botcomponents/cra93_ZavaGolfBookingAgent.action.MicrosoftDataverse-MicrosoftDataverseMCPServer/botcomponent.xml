@@ -1,0 +1,10 @@
+<botcomponent schemaname="cra93_ZavaGolfBookingAgent.action.MicrosoftDataverse-MicrosoftDataverseMCPServer">
+  <componenttype>9</componenttype>
+  <iscustomizable>0</iscustomizable>
+  <name>Microsoft Dataverse - Microsoft Dataverse MCP Server</name>
+  <parentbotid>
+    <schemaname>cra93_ZavaGolfBookingAgent</schemaname>
+  </parentbotid>
+  <statecode>0</statecode>
+  <statuscode>1</statuscode>
+</botcomponent>

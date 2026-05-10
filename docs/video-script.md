@@ -4,7 +4,7 @@
 
 **Title:** Building a Golf Course Booking Agent with Dataverse MCP + Copilot Studio  
 **Format:** Two-part walkthrough  
-**Environment:** `https://orgb6808a5d.crm.dynamics.com/`
+**Environment:** `https://<yourinstance>.crm.dynamics.com/`
 
 ---
 
@@ -38,7 +38,7 @@
 > "Let me verify we're connected."
 
 
-Connect to https://orgb6808a5d.crm.dynamics.com/
+Connect to https://<yourinstance>.crm.dynamics.com/
 
 
 ### Prompt 1 — List existing tables
@@ -537,7 +537,7 @@ What's the total revenue from all confirmed bookings?
 ### What to show:
 
 1. Navigate to [https://copilotstudio.microsoft.com](https://copilotstudio.microsoft.com)
-2. Select the target environment (`orgb6808a5d`)
+2. Select the target environment (`<yourinstance>`)
 3. Click **Create** → **New agent**
 4. Name it: **"Zava Golf Booking Agent"**
 
@@ -762,7 +762,7 @@ How much does it cost to play a round of golf?
 
 # Pre-Recording Checklist
 
-- [ ] Clean Dataverse environment at `https://orgb6808a5d.crm.dynamics.com/` (no existing custom tables)
+- [ ] Clean Dataverse environment at `https://<yourinstance>.crm.dynamics.com/` (no existing custom tables)
 - [ ] MCP plugin configured and connected to the environment
 - [ ] Terminal / VS Code zoomed to at least 150% for screen readability
 - [ ] Screen recording software running (OBS, Camtasia, etc.)

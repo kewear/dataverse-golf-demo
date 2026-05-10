@@ -1,7 +1,7 @@
 # Dataverse Workspace
 
 ## Environment
-- **URL:** https://org1a892f71.crm.dynamics.com/
+- **URL:** https://<yourinstance>.crm.dynamics.com/
 - **Solution:** GolfCourseAgent
 - **Publisher Prefix:** 
 - **PAC Auth Profile:** nonprod
@@ -26,7 +26,7 @@ git add ./solutions/GolfCourseAgent && git commit -m "chore: pull GolfCourseAgen
 **Push from repo to environment:**
 ```
 pac solution pack --zipfile ./solutions/GolfCourseAgent.zip --folder ./solutions/GolfCourseAgent
-pac solution import --path ./solutions/GolfCourseAgent.zip --environment https://org1a892f71.crm.dynamics.com/ --async --activate-plugins
+pac solution import --path ./solutions/GolfCourseAgent.zip --environment https://<yourinstance>.crm.dynamics.com/ --async --activate-plugins
 rm ./solutions/GolfCourseAgent.zip
 ```
 

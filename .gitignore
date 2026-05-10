@@ -5,7 +5,7 @@
 *.snk
 __pycache__/
 *.pyc
-solutions/*.zip
+# solutions/*.zip  — intentionally tracked so viewers can import directly
 plugins/**/bin/
 plugins/**/obj/
 
